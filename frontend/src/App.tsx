@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import "./App.css";
 
 function App() {
@@ -7,18 +8,8 @@ function App() {
    return (
       <>
          <div className="card bg-background">
-            <button
-               className="bg-green-100 hover:bg-green-200"
-               onClick={() => setCount(count => count + 1)}
-            >
-               up
-            </button>
-            <button
-               className="bg-red-100 hover:bg-red-200"
-               onClick={() => setCount(count => count - 1)}
-            >
-               down
-            </button>
+            <Button onClick={() => setCount(count => count + 1)}>up</Button>
+            <Button onClick={() => setCount(count => count - 1)}>down</Button>
             <p>count: {count}</p>
          </div>
       </>
