@@ -1,15 +1,39 @@
 # react-expense-tracker-app
 
+A simple react expense tracker build with react, hono, bun, tailwind, shadcn and much more.
+
+To run the application both the backend and the frontend must runs simultaneously.
+
+## Backend:
+
 To install dependencies:
 
 ```bash
-bun install
+bun i
 ```
 
 To run:
 
 ```bash
-bun run index.ts
+bun dev
 ```
 
-This project was created using `bun init` in bun v1.1.17. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## Frontend
+
+Enter directory:
+
+```bash
+cd frontend
+```
+
+To install dependencies:
+
+```bash
+bun i
+```
+
+To run:
+
+```bash
+bun run dev
+```
