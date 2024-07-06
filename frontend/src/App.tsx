@@ -1,34 +1,46 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { useEffect } from "react";
+
+import { api } from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
+
+import {
+   Card,
+   CardContent,
+   CardDescription,
+   CardHeader,
+   CardTitle,
+} from "@/components/ui/card";
+
+async function getTotalSpent() {
+   const res = await api.expenses["total-spent"].$get();
+   if (!res.ok) {
+      throw new Error("Server error");
+   }
+   const data = await res.json();
+   return data;
+}
 
 function App() {
-   const [count, setCount] = useState(0);
+   const { isPending, error, data } = useQuery({
+      queryKey: ["get-total-spent"],
+      queryFn: getTotalSpent,
+   });
+
+   if (error) {
+      return <div>Error: {error.message}</div>;
+   }
 
    return (
-      <>
-         <div>
-            <a href="https://vitejs.dev" target="_blank">
-               <img src={viteLogo} className="logo" alt="Vite logo" />
-            </a>
-            <a href="https://react.dev" target="_blank">
-               <img src={reactLogo} className="logo react" alt="React logo" />
-            </a>
-         </div>
-         <h1>Vite + React</h1>
-         <div className="card">
-            <button onClick={() => setCount(count => count + 1)}>
-               count is {count}
-            </button>
-            <p>
-               Edit <code>src/App.tsx</code> and save to test HMR
-            </p>
-         </div>
-         <p className="text-foreground">
-            Click on the Vite and React logos to learn more
-         </p>
-      </>
+      <Card className="w-[350px] m-auto">
+         <CardHeader>
+            <CardTitle>Total spent</CardTitle>
+            <CardDescription>The total amount you've spent</CardDescription>
+         </CardHeader>
+         <CardContent>
+            {isPending ? "Loading..." : data?.totalSpent}
+         </CardContent>
+      </Card>
    );
 }
 
